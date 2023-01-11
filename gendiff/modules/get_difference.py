@@ -1,3 +1,13 @@
+def repr_bool(elem):
+    if type(elem) is bool and elem == True:
+        result = 'true'
+    elif type(elem) is bool and elem == False:
+        result = 'false'
+    else:
+        result = elem
+    return result
+
+
 def generate_diff(first_file, second_file):
     file1_keys = set(first_file.keys())
     file2_keys = set(second_file.keys())
@@ -10,12 +20,12 @@ def generate_diff(first_file, second_file):
     difference = '{'
     for i in all_keys:
         if i in added:
-            difference += str(f'\n+ {i}: {second_file[i]}')
+            difference += str(f'\n+ {i}: {repr_bool(second_file[i])}')
         elif i in removed:
-            difference += str(f'\n- {i}: {first_file[i]}')
+            difference += str(f'\n- {i}: {repr_bool(first_file[i])}')
         elif i in modified:
-            difference += str(f'\n- {i}: {first_file[i]}\n+ {i}: {second_file[i]}')
+            difference += str(f'\n- {i}: {repr_bool(first_file[i])}\n+ {i}: {repr_bool(second_file[i])}')
         else:
-            difference += str(f'\n  {i}: {first_file[i]}')
+            difference += str(f'\n  {i}: {repr_bool(first_file[i])}')
     difference += '\n}'
     return difference
