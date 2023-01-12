@@ -1,31 +1,31 @@
-def repr_bool(elem):
-    if type(elem) is bool and elem == True:
+def repr_el(elem):
+    if type(elem) is bool and elem is True:
         result = 'true'
-    elif type(elem) is bool and elem == False:
+    elif type(elem) is bool and elem is False:
         result = 'false'
     else:
         result = elem
     return result
 
 
-def generate_diff(first_file, second_file):
-    file1_keys = set(first_file.keys())
-    file2_keys = set(second_file.keys())
+def generate_diff(f_1, f_2):
+    file1_keys = set(f_1.keys())
+    file2_keys = set(f_2.keys())
     all_keys = list(file1_keys.union(file2_keys))
     all_keys.sort()
-    shared_keys = file1_keys.intersection(file2_keys)
+    sh_keys = file1_keys.intersection(file2_keys)
     added = file2_keys - file1_keys
     removed = file1_keys - file2_keys
-    modified = {i: (first_file[i], second_file[i]) for i in shared_keys if first_file[i] != second_file[i]}
-    difference = '{'
+    modified = {i: (f_1[i], f_2[i]) for i in sh_keys if f_1[i] != f_2[i]}
+    diff = '{'
     for i in all_keys:
         if i in added:
-            difference += str(f'\n+ {i}: {repr_bool(second_file[i])}')
+            diff += str(f'\n+ {i}: {repr_el(f_2[i])}')
         elif i in removed:
-            difference += str(f'\n- {i}: {repr_bool(first_file[i])}')
+            diff += str(f'\n- {i}: {repr_el(f_1[i])}')
         elif i in modified:
-            difference += str(f'\n- {i}: {repr_bool(first_file[i])}\n+ {i}: {repr_bool(second_file[i])}')
+            diff += str(f'\n- {i}: {repr_el(f_1[i])}\n+ {i}: {repr_el(f_2[i])}')
         else:
-            difference += str(f'\n  {i}: {repr_bool(first_file[i])}')
-    difference += '\n}'
-    return difference
+            diff += str(f'\n  {i}: {repr_el(f_1[i])}')
+    diff += '\n}'
+    return diff
