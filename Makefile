@@ -19,3 +19,6 @@ test:
 check:
 	make test
 	make lint
+
+test-coverage:
+	poetry run pytest --cov --cov-report xml
