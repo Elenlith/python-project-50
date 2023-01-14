@@ -1,0 +1,9 @@
+{
+- age: 35
++ birth_year: 1985
+- married: true
++ married: false
+  name: Artyom
+- surname: Ivanov
++ surname: Petrov
+}
