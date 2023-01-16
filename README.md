@@ -7,3 +7,5 @@
 JSON files contents comparison:
 <a href="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg" target="_blank"><img src="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg.svg" /></a>
 
+YAML files contents comparison:
+<a href="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe" target="_blank"><img src="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe.svg" /></a>
