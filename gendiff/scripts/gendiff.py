@@ -1,6 +1,7 @@
 import argparse
-import json
+import os
 from gendiff.modules.get_difference import generate_diff
+from gendiff.modules.parsing import parse_json, parse_yaml
 
 
 def main():
@@ -11,9 +12,18 @@ def main():
     parser.add_argument('-f', '--format', help='set format of output')
     args = parser.parse_args()
 
-    file1 = json.load(open(args.first_file))
-    file2 = json.load(open(args.second_file))
-    print(generate_diff(file1, file2))
+    ext1 = os.path.splitext(args.first_file)[-1].lower()
+    ext2 = os.path.splitext(args.first_file)[-1].lower()
+    if ext1 == '.json' and ext2 == '.json':
+        file1 = parse_json(args.first_file)
+        file2 = parse_json(args.second_file)
+        print(generate_diff(file1, file2))
+    elif ext1 == '.yml' or '.yaml' and ext2 == '.yml' or '.yaml':
+        file1 = parse_yaml(args.first_file)
+        file2 = parse_yaml(args.second_file)
+        print(generate_diff(file1, file2))
+    else:
+        print('Wrong files format')
 
 
 if __name__ == '__main__':
