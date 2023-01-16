@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
 
     ext1 = os.path.splitext(args.first_file)[-1].lower()
-    ext2 = os.path.splitext(args.first_file)[-1].lower()
+    ext2 = os.path.splitext(args.second_file)[-1].lower()
     if ext1 == '.json' and ext2 == '.json':
         file1 = parse_json(args.first_file)
         file2 = parse_json(args.second_file)
