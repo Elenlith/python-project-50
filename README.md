@@ -9,3 +9,6 @@ JSON files contents comparison:
 
 YAML files contents comparison:
 <a href="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe" target="_blank"><img src="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe.svg" /></a>
+
+Package work example:
+<a href="https://asciinema.org/a/VBsKcW6DICBsbyq23QawBvahw" target="_blank"><img src="https://asciinema.org/a/VBsKcW6DICBsbyq23QawBvahw.svg" /></a>
