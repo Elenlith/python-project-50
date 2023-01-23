@@ -57,5 +57,6 @@ def stylish(diff, indent=1):
     return result
 
 
-def generate_diff(f_1, f_2):
-    return stylish(make_diff(f_1, f_2))
+def generate_diff(f_1, f_2, format='stylish'):
+    if format == 'stylish':
+        return stylish(make_diff(f_1, f_2))
