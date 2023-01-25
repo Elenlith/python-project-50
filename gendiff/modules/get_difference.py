@@ -1,4 +1,5 @@
 from gendiff.modules.formatters.stylish_f import stylish
+from gendiff.modules.formatters.plain_f import plain
 
 
 def make_diff(f_1, f_2):
@@ -31,3 +32,5 @@ def make_diff(f_1, f_2):
 def generate_diff(f_1, f_2, format='stylish'):
     if format == 'stylish':
         return stylish(make_diff(f_1, f_2))
+    elif format == 'plain':
+        return plain(make_diff(f_1, f_2))
