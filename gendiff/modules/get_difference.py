@@ -15,17 +15,16 @@ def make_diff(f_1, f_2):
     diff = {}
     for i in all_keys:
         if i in added:
-            diff[('+ ' + i)] = f_2[i]
+            diff[('+_' + i)] = f_2[i]
         elif i in removed:
-            diff[('- ' + i)] = f_1[i]
+            diff[('-_' + i)] = f_1[i]
         elif i in unchanged:
             diff[i] = f_1[i]
         elif i in modified:
             if type(f_1[i]) == dict and type(f_2[i]) == dict:
-                diff[i] = make_diff(f_1[i], f_2[i])
+                diff['!_' + i] = make_diff(f_1[i], f_2[i])
             else:
-                diff[('- ' + i)] = f_1[i]
-                diff[('+ ' + i)] = f_2[i]
+                diff[('!_' + i)] = [f_1[i], f_2[i]]
     return diff
 
 
