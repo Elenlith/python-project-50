@@ -13,10 +13,10 @@ def main():
         default='stylish'
     )
     args = parser.parse_args()
-
+    f = args.format
     file1 = parse_data(args.first_file)
     file2 = parse_data(args.second_file)
-    print(generate_diff(file1, file2))
+    print(generate_diff(file1, file2, f))
 
 
 if __name__ == '__main__':
