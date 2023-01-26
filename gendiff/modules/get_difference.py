@@ -2,6 +2,14 @@ from gendiff.modules.formatters.stylish_f import stylish
 from gendiff.modules.formatters.plain_f import plain
 
 
+def mod_check(a, b, i, diff):
+    if type(a) == dict and type(b) == dict:
+        diff['!_' + i] = make_diff(a, b)
+    else:
+        diff[('!_' + i)] = [a, b]
+    return diff
+
+
 def make_diff(f_1, f_2):
     file1_keys = set(f_1.keys())
     file2_keys = set(f_2.keys())
@@ -21,10 +29,7 @@ def make_diff(f_1, f_2):
         elif i in unchanged:
             diff[i] = f_1[i]
         elif i in modified:
-            if type(f_1[i]) == dict and type(f_2[i]) == dict:
-                diff['!_' + i] = make_diff(f_1[i], f_2[i])
-            else:
-                diff[('!_' + i)] = [f_1[i], f_2[i]]
+            diff = mod_check(f_1[i], f_2[i], i, diff)
     return diff
 
 
