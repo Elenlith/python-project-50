@@ -1,23 +1,32 @@
 from gendiff.modules.converter import repr_el
 
 
+def stylish_start(diff, key, indent):
+    if key[0] == '+':
+        j = (indent - 1) * '    ' + '  + ' + key[2:]
+    elif key[0] == '-':
+        j = (indent - 1) * '    ' + '  - ' + key[2:]
+    elif key[0] == '!' and type(diff[key]) is list:
+        j = []
+        j.append((indent - 1) * '    ' + '  - ' + key[2:])
+        j.append((indent - 1) * '    ' + '  + ' + key[2:])
+    elif key[0] == '!' and type(diff[key]) is dict:
+        j = indent * '    ' + key[2:]
+    else:
+        j = indent * '    ' + key
+    return j
+
+
 def stylish(diff, indent=1):
     r = '{' + '\n'
     j = ''
     j1 = ''
     j2 = ''
     for i in list(diff.keys()):
-        if i[0] == '+':
-            j = (indent - 1) * '    ' + '  + ' + i[2:]
-        elif i[0] == '-':
-            j = (indent - 1) * '    ' + '  - ' + i[2:]
-        elif i[0] == '!' and type(diff[i]) is list:
-            j1 = (indent - 1) * '    ' + '  - ' + i[2:]
-            j2 = (indent - 1) * '    ' + '  + ' + i[2:]
-        elif i[0] == '!' and type(diff[i]) is dict:
-            j = indent * '    ' + i[2:]
-        else:
-            j = indent * '    ' + i
+        j = stylish_start(diff, i, indent)
+        if type(j) is list:
+            j1 = j[0]
+            j2 = j[1]
         if type(diff[i]) is dict:
             r += j + ': ' + stylish(repr_el(diff[i]), indent + 1) + '\n'
         elif type(diff[i]) is list:
