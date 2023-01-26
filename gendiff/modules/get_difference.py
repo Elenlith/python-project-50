@@ -32,4 +32,4 @@ def generate_diff(f_1, f_2, format='stylish'):
     if format == 'stylish':
         return stylish(make_diff(f_1, f_2))
     elif format == 'plain':
-        return plain(make_diff(f_1, f_2))
+        return plain(make_diff(f_1, f_2))[:-1]
