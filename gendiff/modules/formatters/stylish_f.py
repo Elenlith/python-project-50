@@ -17,6 +17,26 @@ def stylish_start(diff, key, indent):
     return j
 
 
+def stylish_if_list(result, elem, j1, j2, indent):
+    if type(elem[0]) is dict:
+        result += j1 + ': ' + stylish(repr_el(elem[0]), indent + 1) + '\n'
+    else:
+        result += j1 + ': ' + str(repr_el(elem[0])) + '\n'
+    if type(elem[1]) is dict:
+        result += j2 + ': ' + stylish(repr_el(elem[1]), indent + 1) + '\n'
+    else:
+        result += j2 + ': ' + str(repr_el(elem[1])) + '\n'
+    return result
+
+
+def stylish_finish(result, indent):
+    if result[-1] == '}':
+        result += '\n' + (indent - 1) * '    ' + '}'
+    else:
+        result += (indent - 1) * '    ' + '}'
+    return result
+
+
 def stylish(diff, indent=1):
     r = '{' + '\n'
     j = ''
@@ -30,18 +50,8 @@ def stylish(diff, indent=1):
         if type(diff[i]) is dict:
             r += j + ': ' + stylish(repr_el(diff[i]), indent + 1) + '\n'
         elif type(diff[i]) is list:
-            if type(diff[i][0]) is dict:
-                r += j1 + ': ' + stylish(repr_el(diff[i][0]), indent + 1) + '\n'
-            else:
-                r += j1 + ': ' + str(repr_el(diff[i][0])) + '\n'
-            if type(diff[i][1]) is dict:
-                r += j2 + ': ' + stylish(repr_el(diff[i][1]), indent + 1) + '\n'
-            else:
-                r += j2 + ': ' + str(repr_el(diff[i][1])) + '\n'
+            r = stylish_if_list(r, diff[i], j1, j2, indent)
         else:
             r += j + ': ' + str(repr_el(diff[i])) + '\n'
-    if r[-1] == '}':
-        r += '\n' + (indent - 1) * '    ' + '}'
-    else:
-        r += (indent - 1) * '    ' + '}'
+    r = stylish_finish(r, indent)
     return r
