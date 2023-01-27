@@ -22,17 +22,22 @@ def plain_if_modified(r, i, elem, name):
     return r
 
 
+def plain_handle_elem(r, name, diff, i):
+    f_name = name + i[2:]
+    if i[0] == '+':
+        val = repr(diff[i])
+        r += f"Property '{f_name}' was added with value: {val}\n"
+    elif i[0] == '-':
+        r += f"Property '{f_name}' was removed\n"
+    elif i[0] == '!':
+        r = plain_if_modified(r, i, diff[i], name)
+    else:
+        pass
+    return r
+
+
 def plain(diff, name=''):
     r = ''
     for i in list(diff.keys()):
-        f_name = name + i[2:]
-        if i[0] == '+':
-            val = repr(diff[i])
-            r += f"Property '{f_name}' was added with value: {val}\n"
-        elif i[0] == '-':
-            r += f"Property '{f_name}' was removed\n"
-        elif i[0] == '!':
-            r = plain_if_modified(r, i, diff[i], name)
-        else:
-            pass
+        r = plain_handle_elem(r, name, diff, i)
     return r
