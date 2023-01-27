@@ -11,6 +11,17 @@ def repr(elem):
     return val
 
 
+def plain_if_modified(r, i, elem, name):
+    if type(elem) is list:
+        val1 = repr(elem[0])
+        val2 = repr(elem[1])
+        r += f"Property '{name + i[2:]}' was updated. From {val1} to {val2}\n"
+    else:
+        new_name = name + str(i[2:] + '.')
+        r += str(plain(elem, new_name))
+    return r
+
+
 def plain(diff, name=''):
     r = ''
     for i in list(diff.keys()):
@@ -20,13 +31,8 @@ def plain(diff, name=''):
             r += f"Property '{f_name}' was added with value: {val}\n"
         elif i[0] == '-':
             r += f"Property '{f_name}' was removed\n"
-        elif i[0] == '!' and type(diff[i]) is list:
-            val1 = repr(diff[i][0])
-            val2 = repr(diff[i][1])
-            r += f"Property '{f_name}' was updated. From {val1} to {val2}\n"
-        elif i[0] == '!' and type(diff[i]) is dict:
-            new_name = name + str(i[2:] + '.')
-            r += plain(diff[i], new_name)
+        elif i[0] == '!':
+            r = plain_if_modified(r, i, diff[i], name)
         else:
             pass
     return r
