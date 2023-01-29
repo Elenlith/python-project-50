@@ -15,3 +15,6 @@ JSON/YAML files with nested structure - comparison with stylish output:
 
 JSON/YAML files comparison with output format (stylish or plain) selection:
 <a href="https://asciinema.org/a/TamOOPQXP71Ul65vW60zv2Fpo" target="_blank"><img src="https://asciinema.org/a/TamOOPQXP71Ul65vW60zv2Fpo.svg" /></a>
+
+JSON/YAML files comparison with JSON output format:
+<a href="https://asciinema.org/a/jT2HLq1OfFXQlPajJPEJmobCh" target="_blank"><img src="https://asciinema.org/a/jT2HLq1OfFXQlPajJPEJmobCh.svg" /></a>
