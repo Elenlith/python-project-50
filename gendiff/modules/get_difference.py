@@ -1,5 +1,6 @@
 from gendiff.modules.formatters.stylish_f import stylish
 from gendiff.modules.formatters.plain_f import plain
+from gendiff.modules.formatters.json_f import form_json
 
 
 def mod_check(a, b, i, diff):
@@ -37,3 +38,5 @@ def generate_diff(f_1, f_2, format='stylish'):
         return stylish(make_diff(f_1, f_2))
     elif format == 'plain':
         return plain(make_diff(f_1, f_2))[:-1]
+    elif format == 'json':
+        return form_json(make_diff(f_1, f_2))
