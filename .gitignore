@@ -5,3 +5,12 @@ gendiff/__pycache__
 tests/__pycache__
 *.pyc
 dist/
+coverage.xml
+gendiff/file1.json
+gendiff/file2.json
+gendiff/file3.json
+gendiff/file4.json
+gendiff/file1.yml
+gendiff/file2.yml
+gendiff/file3.yml
+gendiff/file4.yml
