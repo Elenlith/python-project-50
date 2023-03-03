@@ -1,7 +1,7 @@
 import json
 import yaml
 from pathlib import Path
-from gendiff.modules.get_difference import generate_diff
+from gendiff.get_difference import generate_diff
 
 
 def test_generate_diff_yaml_stylish():

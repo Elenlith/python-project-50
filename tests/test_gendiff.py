@@ -1,5 +1,5 @@
 import gendiff
-from gendiff.modules import get_difference
+from gendiff import get_difference
 
 
 def test_names():

@@ -1,4 +1,4 @@
-from gendiff.modules.converter import repr_el
+from gendiff.converter import repr_el
 
 
 def stylish_start(diff, key, indent):

@@ -1,6 +1,6 @@
-from gendiff.modules.formatters.stylish_f import stylish
-from gendiff.modules.formatters.plain_f import plain
-from gendiff.modules.formatters.json_f import form_json
+from gendiff.formatters.stylish_f import stylish
+from gendiff.formatters.plain_f import plain
+from gendiff.formatters.json_f import form_json
 
 
 def mod_check(a, b, i, diff):
