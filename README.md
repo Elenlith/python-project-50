@@ -17,7 +17,7 @@ cd python-project-50
 make # see Makefile for details
 ```
 
-##How-to videos 
+## How-to videos 
  
 JSON files contents comparison (stylish output):
 <a href="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg" target="_blank"><img src="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg.svg" /></a>
