@@ -1,9 +1,15 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "The tool for two JSON/YAML contents comparison"
 authors = ["Elenlith <mishchenkov@list.ru>"]
 readme = "README.md"
+repository = "https://github.com/Elenlith/python-project-50.git"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Free For Home Use",
+    "Operating System :: Unix",
+]
 packages = [{include = "gendiff"}]
 
 [tool.poetry.dependencies]
