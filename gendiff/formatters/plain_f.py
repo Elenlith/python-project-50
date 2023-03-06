@@ -37,7 +37,7 @@ def plain_handle_elem(r, name, diff, i):
 
 
 def plain(diff, name=''):
-    r = ''
+    res = ''
     for i in list(diff.keys()):
-        r = plain_handle_elem(r, name, diff, i)
-    return r
+        res = plain_handle_elem(res, name, diff, i)
+    return res
