@@ -4,7 +4,7 @@ from gendiff.converter import repr_el
 def repr(elem):
     if type(elem) is dict:
         val = '[complex value]'
-    elif type(elem) is not bool and elem is not None:
+    elif type(elem) is not bool and elem is not None and elem != 0:
         val = f"'{str(repr_el(elem))}'"
     else:
         val = repr_el(elem)
