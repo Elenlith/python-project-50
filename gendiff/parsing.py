@@ -3,20 +3,22 @@ import yaml
 import os
 
 
-def parse_json(filepath):
-    return json.load(open(filepath))
+def read_file(filepath):
+    return open(filepath, 'r')
 
 
-def parse_yaml(filepath):
-    with open(filepath, 'r') as file:
-        value = yaml.safe_load(file)
-    return value
+def parse_json(file_str):
+    return json.load(file_str)
 
 
-def parse_data(filepath):
+def parse_yaml(file_str):
+    return yaml.safe_load(file_str)
+
+
+def parse_data(filepath, file_str):
     ext = os.path.splitext(filepath)[-1].lower()
     if ext == '.json':
-        file = parse_json(filepath)
+        file = parse_json(file_str)
     elif ext == '.yml' or '.yaml':
-        file = parse_yaml(filepath)
+        file = parse_yaml(file_str)
     return file

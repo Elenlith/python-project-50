@@ -1,7 +1,7 @@
 from gendiff.formatters.stylish_f import stylish
 from gendiff.formatters.plain_f import plain
 from gendiff.formatters.json_f import form_json
-from gendiff.parsing import parse_data
+from gendiff.parsing import read_file, parse_data
 
 
 def mod_check(a, b, i, diff):
@@ -35,8 +35,10 @@ def make_diff(f_1, f_2):
 
 
 def generate_diff(path_1, path_2, format='stylish'):
-    f_1 = parse_data(path_1)
-    f_2 = parse_data(path_2)
+    f_1_str = read_file(path_1)
+    f_2_str = read_file(path_2)
+    f_1 = parse_data(path_1, f_1_str)
+    f_2 = parse_data(path_2, f_2_str)
     if format == 'stylish':
         return stylish(make_diff(f_1, f_2))
     elif format == 'plain':
