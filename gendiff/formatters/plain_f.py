@@ -11,33 +11,31 @@ def repr(elem):
     return val
 
 
-def plain_if_modified(r, i, elem, name):
-    if type(elem) is list:
-        val1 = repr(elem[0])
-        val2 = repr(elem[1])
-        r += f"Property '{name + i[2:]}' was updated. From {val1} to {val2}\n"
+def compose_name(name, elem):
+    if len(name) > 1:
+        f_name = name + '.' + elem['key']
     else:
-        new_name = name + str(i[2:] + '.')
-        r += str(plain(elem, new_name))
-    return r
-
-
-def plain_handle_elem(r, name, diff, i):
-    f_name = name + i[2:]
-    if i[0] == '+':
-        val = repr(diff[i])
-        r += f"Property '{f_name}' was added with value: {val}\n"
-    elif i[0] == '-':
-        r += f"Property '{f_name}' was removed\n"
-    elif i[0] == '!':
-        r = plain_if_modified(r, i, diff[i], name)
-    else:
-        pass
-    return r
+        f_name = elem['key']
+    return f_name
 
 
 def plain(diff, name=''):
-    res = ''
-    for i in list(diff.keys()):
-        res = plain_handle_elem(res, name, diff, i)
+    res = []
+    for elem in diff:
+        status = elem['type']
+        f_name = compose_name(name, elem)
+        if status == 'nested':
+            res.extend(plain(elem['children'], f_name))
+        elif status == 'changed':
+            old_value = repr(elem['old_value'])
+            new_value = repr(elem['new_value'])
+            res.append(
+                f"Property '{f_name}' was updated. "
+                f"From {old_value} to {new_value}\n")
+        elif status == 'added':
+            value = repr(elem['value'])
+            res.append(f"Property '{f_name}' was added with value: {value}\n")
+        elif status == 'deleted':
+            res.append(f"Property '{f_name}' was removed\n")
+    res = ''.join(res)
     return res

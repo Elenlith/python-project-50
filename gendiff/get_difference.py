@@ -4,34 +4,28 @@ from gendiff.formatters.json_f import form_json
 from gendiff.parsing import read_file, parse_data
 
 
-def mod_check(a, b, i, diff):
-    if type(a) == dict and type(b) == dict:
-        diff['!_' + i] = make_diff(a, b)
-    else:
-        diff[('!_' + i)] = [a, b]
-    return diff
-
-
 def make_diff(f_1, f_2):
     file1_keys = set(f_1.keys())
     file2_keys = set(f_2.keys())
     all_keys = list(file1_keys.union(file2_keys))
     all_keys.sort()
-    sh_keys = file1_keys.intersection(file2_keys)
-    added = file2_keys - file1_keys
-    removed = file1_keys - file2_keys
-    unchanged = {i: (f_1[i], f_2[i]) for i in sh_keys if f_1[i] == f_2[i]}
-    diff = {}
-    for i in all_keys:
-        if i in added:
-            diff[('+_' + i)] = f_2[i]
-        elif i in removed:
-            diff[('-_' + i)] = f_1[i]
-        elif i in unchanged:
-            diff[i] = f_1[i]
+    diff_dict = []
+    for key in all_keys:
+        if key not in f_2:
+            diff_dict.append({'key': key, 'type': 'deleted', 'value': f_1[key]})
+        elif key not in f_1:
+            diff_dict.append({'key': key, 'type': 'added', 'value': f_2[key]})
+        elif isinstance(f_1[key], dict) and isinstance(f_2[key], dict):
+            children = make_diff(f_1[key], f_2[key])
+            diff_dict.append({'key': key, 'type': 'nested',
+                              'children': children})
+        elif f_1[key] == f_2[key]:
+            diff_dict.append({'key': key, 'type': 'unchanged',
+                              'value': f_1[key]})
         else:
-            diff = mod_check(f_1[i], f_2[i], i, diff)
-    return diff
+            diff_dict.append({'key': key, 'type': 'changed',
+                              'old_value': f_1[key], 'new_value': f_2[key]})
+    return diff_dict
 
 
 def generate_diff(path_1, path_2, format='stylish'):
