@@ -19,8 +19,8 @@ make install # see Makefile for details
 
 ## How-to videos 
  
-JSON files contents comparison (stylish output):
-<a href="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg" target="_blank"><img src="https://asciinema.org/a/IlFcB3WGTFM1eE7kCS5drGhtg.svg" /></a>
+Help and JSON files contents comparison (stylish output):
+<a href="https://asciinema.org/a/o2lczbKoPhLNDeDr5rcGOVyTO" target="_blank"><img src="https://asciinema.org/a/o2lczbKoPhLNDeDr5rcGOVyTO.svg" /></a>
 
 YAML files contents comparison (stylish output):
 <a href="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe" target="_blank"><img src="https://asciinema.org/a/lu41bBI3r7EYjeyUR2KXUojpe.svg" /></a>
@@ -32,4 +32,4 @@ JSON/YAML files comparison with output format (stylish or plain) selection:
 <a href="https://asciinema.org/a/TamOOPQXP71Ul65vW60zv2Fpo" target="_blank"><img src="https://asciinema.org/a/TamOOPQXP71Ul65vW60zv2Fpo.svg" /></a>
 
 JSON/YAML files comparison with JSON output format:
-<a href="https://asciinema.org/a/jT2HLq1OfFXQlPajJPEJmobCh" target="_blank"><img src="https://asciinema.org/a/jT2HLq1OfFXQlPajJPEJmobCh.svg" /></a>
+<a href="https://asciinema.org/a/LOJG5k2hhsKJ6E8CLde2iIWDp" target="_blank"><img src="https://asciinema.org/a/LOJG5k2hhsKJ6E8CLde2iIWDp.svg" /></a>
