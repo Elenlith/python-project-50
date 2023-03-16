@@ -1,48 +1,52 @@
 from gendiff.converter import repr_el
 
 
-def stylish_start(diff, key, indent):
-    if key[0] == '+':
-        j = (indent - 1) * '    ' + '  + ' + key[2:]
-    elif key[0] == '-':
-        j = (indent - 1) * '    ' + '  - ' + key[2:]
-    elif key[0] == '!' and type(diff[key]) is list:
-        j = []
-        j.append((indent - 1) * '    ' + '  - ' + key[2:])
-        j.append((indent - 1) * '    ' + '  + ' + key[2:])
-    elif key[0] == '!' and type(diff[key]) is dict:
-        j = indent * '    ' + key[2:]
+def repr_value(elem, indent=1):
+    result = ["{"]
+    if type(elem) is dict:
+        for key, val in elem.items():
+            val = repr_el(val)
+            result.append(f"{'  ' * indent}  {key}: "
+                          f"{repr_value(val, indent + 2)}")
+        result.append(f"{'  ' * (indent - 1)}}}")
     else:
-        j = indent * '    ' + key
-    return j
+        return repr_el(elem)
+    return '\n'.join(result)
 
 
-def stylish_if_list(result, elem, j, indent):
-    for (i, _) in enumerate(elem):
-        if type(elem[i]) is dict:
-            result += j[i] + ': ' + stylish(repr_el(elem[i]), indent + 1) + '\n'
+def select_char(el_type):
+    if el_type == 'added':
+        char = '+'
+    elif el_type == 'deleted':
+        char = '-'
+    else:
+        char = ' '
+    return char
+
+
+def build_stylish(diff, indent=1):
+    result = []
+    for elem in diff:
+        el_type = elem['type']
+        key = elem['key']
+        if el_type == 'nested':
+            result.append(f"{'  ' * indent}  {key}: {{\n"
+                          f"{build_stylish(elem['children'], indent + 2)}")
+            result.append(f"{'  ' * (indent + 1)}}}\n")
+        elif el_type == 'changed':
+            result.append(f"{'  ' * indent}- {key}: "
+                          f"{repr_value(elem['old_value'], indent + 2)}\n")
+            result.append(f"{'  ' * indent}+ {key}: "
+                          f"{repr_value(elem['new_value'], indent + 2)}\n")
         else:
-            result += j[i] + ': ' + str(repr_el(elem[i])) + '\n'
+            char = select_char(el_type)
+            result.append(f"{'  ' * indent}{char} {key}: "
+                          f"{repr_value(elem['value'], indent + 2)}\n")
+    result = ''.join(result)
     return result
 
 
-def stylish_finish(result, indent):
-    if result[-1] == '}':
-        result += '\n' + (indent - 1) * '    ' + '}'
-    else:
-        result += (indent - 1) * '    ' + '}'
+def stylish(diff):
+    stylish_built = build_stylish(diff)
+    result = str('{\n' + stylish_built + '}')
     return result
-
-
-def stylish(diff, indent=1):
-    r = '{' + '\n'
-    for i in list(diff.keys()):
-        j = stylish_start(diff, i, indent)
-        if type(diff[i]) is dict:
-            r += j + ': ' + stylish(repr_el(diff[i]), indent + 1) + '\n'
-        elif type(diff[i]) is list:
-            r = stylish_if_list(r, diff[i], j, indent)
-        else:
-            r += j + ': ' + str(repr_el(diff[i])) + '\n'
-    r = stylish_finish(r, indent)
-    return r
