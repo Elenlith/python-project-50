@@ -14,7 +14,7 @@ The comparison result may be represented either in plain format or as a list of 
 ```bash
 git clone https://github.com/Elenlith/python-project-50.git
 cd python-project-50
-make # see Makefile for details
+make install # see Makefile for details
 ```
 
 ## How-to videos 
