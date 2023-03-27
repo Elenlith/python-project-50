@@ -1,4 +1,4 @@
-def repr_el(elem):
+def normalize_elem(elem):
     if type(elem) is bool and elem is True:
         result = 'true'
     elif type(elem) is bool and elem is False:
