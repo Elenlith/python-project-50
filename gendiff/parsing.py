@@ -8,9 +8,9 @@ def read_file(filepath):
 
 
 def parse_data(filepath, file_str):
-    ext = os.path.splitext(filepath)[-1].lower()
-    if ext == '.json':
-        file = json.load(file_str)
-    elif ext == '.yml' or '.yaml':
-        file = yaml.safe_load(file_str)
-    return file
+    file_extension = os.path.splitext(filepath)[-1].lower()
+    if file_extension == '.json':
+        contents = json.load(file_str)
+    elif file_extension == '.yml' or '.yaml':
+        contents = yaml.safe_load(file_str)
+    return contents

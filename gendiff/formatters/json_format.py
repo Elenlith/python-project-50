@@ -2,5 +2,5 @@ import json
 
 
 def form_json(diff):
-    r = json.dumps(diff)
-    return r
+    result = json.dumps(diff)
+    return result
