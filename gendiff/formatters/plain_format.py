@@ -1,4 +1,4 @@
-from gendiff.converter import normalize_elem
+from gendiff.formatters.stylish_format import normalize_elem
 
 
 def represent_elem(elem):
