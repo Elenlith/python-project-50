@@ -1,5 +1,5 @@
 import gendiff
-from gendiff import get_difference
+from gendiff import gendiff_with_formatter
 
 
 def test_names():
@@ -7,7 +7,7 @@ def test_names():
 
 
 def test_references():
-    assert gendiff.generate_diff is get_difference.generate_diff
+    assert gendiff.generate_diff is gendiff_with_formatter.generate_diff
 
 
 def test_all_metavar():

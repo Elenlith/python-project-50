@@ -1,4 +1,4 @@
-from gendiff.get_difference import generate_diff
+from gendiff.gendiff_with_formatter import generate_diff
 from gendiff.argparsing import get_args
 
 

@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from gendiff.get_difference import generate_diff
+from gendiff.gendiff_with_formatter import generate_diff
 
 
 @pytest.mark.parametrize("out_format,expected", [
