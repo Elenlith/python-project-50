@@ -9,7 +9,7 @@ def apply_format(difference, format):
     if format == 'stylish':
         return stylish(difference)
     elif format == 'plain':
-        return plain(difference)[:-1]
+        return plain(difference)
     elif format == 'json':
         return form_json(difference)
     else:
