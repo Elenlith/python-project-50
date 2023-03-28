@@ -1,25 +1,16 @@
-def normalize_elem(item):
-    if type(item) is bool and item is True:
-        result = 'true'
-    elif type(item) is bool and item is False:
-        result = 'false'
-    elif item is None:
-        result = 'null'
-    else:
-        result = item
-    return result
-
-
-def normalize_value(item, indent=1):
+def represent_item(item, indent=1):
     result = ["{"]
-    if type(item) is dict:
+    if type(item) is bool:
+        return str(item).lower()
+    elif item is None:
+        return 'null'
+    elif type(item) is dict:
         for key, val in item.items():
-            val = normalize_elem(val)
             result.append(f"{'  ' * indent}  {key}: "
-                          f"{normalize_value(val, indent + 2)}")
+                          f"{represent_item(val, indent + 2)}")
         result.append(f"{'  ' * (indent - 1)}}}")
     else:
-        return normalize_elem(item)
+        return item
     return '\n'.join(result)
 
 
@@ -34,18 +25,18 @@ def build_stylish(diff, indent=1):
             result.append(f"{'  ' * (indent + 1)}}}\n")
         elif status == 'changed':
             result.append(f"{'  ' * indent}- {key}: "
-                          f"{normalize_value(item['old_value'], indent + 2)}\n")
+                          f"{represent_item(item['old_value'], indent + 2)}\n")
             result.append(f"{'  ' * indent}+ {key}: "
-                          f"{normalize_value(item['new_value'], indent + 2)}\n")
+                          f"{represent_item(item['new_value'], indent + 2)}\n")
         elif status == 'added':
             result.append(f"{'  ' * indent}+ {key}: "
-                          f"{normalize_value(item['value'], indent + 2)}\n")
+                          f"{represent_item(item['value'], indent + 2)}\n")
         elif status == 'deleted':
             result.append(f"{'  ' * indent}- {key}: "
-                          f"{normalize_value(item['value'], indent + 2)}\n")
+                          f"{represent_item(item['value'], indent + 2)}\n")
         else:
             result.append(f"{'  ' * indent}  {key}: "
-                          f"{normalize_value(item['value'], indent + 2)}\n")
+                          f"{represent_item(item['value'], indent + 2)}\n")
     result = ''.join(result)
     return result
 
