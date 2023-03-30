@@ -1,19 +1,6 @@
-from gendiff.formatters.stylish import stylish
-from gendiff.formatters.plain import plain
-from gendiff.formatters.json import form_json
+from gendiff.formatters.__init__ import apply_format
 from gendiff.parser import read_file, parse_data
 from gendiff.difference_evaluation import make_diff
-
-
-def apply_format(difference, format):
-    if format == 'stylish':
-        return stylish(difference)
-    elif format == 'plain':
-        return plain(difference)
-    elif format == 'json':
-        return form_json(difference)
-    else:
-        raise NameError('Wrong format name')
 
 
 def generate_diff(path_1, path_2, format='stylish'):
