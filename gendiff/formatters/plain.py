@@ -1,11 +1,11 @@
 def represent_item_plain(item):
-    if type(item) is bool:
+    if isinstance(item, bool):
         return str(item).lower()
     elif item is None:
         return 'null'
-    elif type(item) is dict:
+    elif isinstance(item, dict):
         return '[complex value]'
-    elif type(item) is int:
+    elif isinstance(item, int):
         return item
     else:
         return f"'{item}'"
@@ -13,7 +13,7 @@ def represent_item_plain(item):
 
 def compose_name(name, item):
     if name:
-        full_name = name + '.' + item['key']
+        full_name = f"{name}.{item['key']}"
     else:
         full_name = item['key']
     return full_name

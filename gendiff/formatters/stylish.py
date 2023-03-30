@@ -1,10 +1,10 @@
 def represent_item(item, indent=1):
     result = ["{"]
-    if type(item) is bool:
+    if isinstance(item, bool):
         return str(item).lower()
     elif item is None:
         return 'null'
-    elif type(item) is dict:
+    elif isinstance(item, dict):
         for key, val in item.items():
             result.append(f"{'  ' * indent}  {key}: "
                           f"{represent_item(val, indent + 2)}")
